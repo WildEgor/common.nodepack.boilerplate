@@ -1,2 +1,1 @@
-# -common.nodepack.boilerplate
- common.nodepack.boilerplate
+# npm-package-boilerplate

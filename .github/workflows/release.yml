@@ -1,0 +1,44 @@
+name: Release
+on:
+  push:
+    branches: [ main ]
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+      issues: read
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install Deps
+        run: yarn install --frozen-lockfile
+
+      - name: Release
+        run: |
+          yarn ci:token
+          yarn release
+        env:
+          NODE_ENV_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#      - name: Send notification to Telegram chat
+#        uses: appleboy/telegram-action@master
+#        with:
+#          to: ${{ secrets.TELEGRAM_TO }}
+#          token: ${{ secrets.TELEGRAM_TOKEN }}
+#          message: |
+#            ${{ github.actor }} created commit:
+#            Commit message: ${{ github.event.commits[0].message }}
+#            Repository: ${{ github.repository }}
+#            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+#            Build completed.

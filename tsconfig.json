@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "outDir": "./modules",
+    "module": "CommonJS",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "lib": [
+      "ESNext"
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "strict": true,
+    "incremental": true,
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "node_modules",
+    "modules"
+  ],
+  "paths": {
+    "@src/*": [
+      "src/*"
+    ],
+    "@types/*": [
+      "src/@types/*"
+    ],
+    "@core/*": [
+      "src/core/*"
+    ],
+    "@adapters/*": [
+      "src/adapters/*"
+    ],
+    "@shared/*": [
+      "src/shared/*"
+    ]
+  }
+}
