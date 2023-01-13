@@ -72,5 +72,4 @@ const bootstrap = async(): Promise<void> => {
     logger.debug(`Swagger available at ${addr}/api/docs`);
   });
 };
-
 bootstrap();
