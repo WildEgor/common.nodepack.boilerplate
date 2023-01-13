@@ -1,12 +1,5 @@
 import { FilterQuery, Model, QueryOptions, SaveOptions, Types } from 'mongoose';
-import {
-  AggregateRoot,
-  IDataWithPaginationMeta,
-  IFindManyPaginatedParams,
-  IQueryParams,
-  IRepositoryPort,
-  NotFoundException,
-} from '../../microservices';
+import { AggregateRoot, IDataWithPaginationMeta, IFindManyPaginatedParams, IQueryParams, IRepositoryPort, NotFoundException } from '../../microservices';
 import { removeUndefinedProps } from '../../typescript';
 import { OrmMapper } from './orm-mapper.base';
 
@@ -16,7 +9,7 @@ import { OrmMapper } from './orm-mapper.base';
 export abstract class MongoBaseRepository<T, TE extends AggregateRoot<unknown>, TF, TSO, TQO>
 implements IRepositoryPort<T, TE, TF, TSO, TQO> {
 
-  protected constructor(
+  constructor(
     // eslint-disable-next-line @typescript-eslint/no-parameter-properties
     protected readonly _model: Model<T>,
     // eslint-disable-next-line @typescript-eslint/no-parameter-properties

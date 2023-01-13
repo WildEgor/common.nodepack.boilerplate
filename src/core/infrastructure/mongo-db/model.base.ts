@@ -3,7 +3,7 @@
  */
 export abstract class MongooseModelBase {
 
-  protected constructor(props?: unknown) {
+  constructor(props?: unknown) {
     if (props) {
       Object.assign(this, props);
     }
