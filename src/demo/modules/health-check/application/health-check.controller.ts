@@ -5,10 +5,10 @@ import {
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 import { HealthCheckResult } from '@nestjs/terminus';
-import { HealthCheckQuery } from './query-cases/health-check.query';
 import { ApiGetHealthCheck } from '../../../infrastructure/swagger/health-check/get-health-check.api';
 import { ResultFactory, ServiceResponseDto, ServiceResponseDtoBase } from '../../../../core/microservices';
 import { LoggerInterceptor } from '../../../../adapters';
+import { HealthCheckQuery } from './query/health-check.query';
 
 @Controller('health-check')
 @ApiTags('Health Check Controller')
