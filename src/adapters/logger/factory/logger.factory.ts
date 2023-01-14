@@ -51,7 +51,7 @@ export class LoggerFactory {
     const res = context.switchToHttp().getResponse<FastifyReply>();
     const requestId = res.getHeader('X-REQUEST-ID');
     const body = req?.body;
-    const userId = (req as FastifyRequest & { user: { id: unknown } })?.user.id;
+    const userId = (req as FastifyRequest & { user: { id: unknown } })?.user?.id;
     return {
       headers: {
         'user-agent': req?.headers['user-agent'],

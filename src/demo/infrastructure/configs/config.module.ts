@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import * as NestConfig from '@nestjs/config';
-import { ConfigService } from '../../shared';
+import { ConfigService } from '../../../shared';
 import { AppConfig } from './app.config';
 import { LoggerConfig } from './logger.config';
 import { MessageBrokerConfig } from './message-broker.config';

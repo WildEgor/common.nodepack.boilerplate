@@ -1,1 +1,1 @@
-# npm-package-boilerplate
+# github nodepack package boilerplate

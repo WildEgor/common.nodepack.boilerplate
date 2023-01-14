@@ -28,9 +28,9 @@ export class LoggerInterceptor implements NestInterceptor {
 
     // default REST Api
     if (context.getType() === 'http') {
-      const headers = context.switchToHttp().getRequest<FastifyRequest>().headers;
+      const req = context.switchToHttp().getRequest<FastifyRequest>();
       const res = context.switchToHttp().getResponse<FastifyReply>();
-      const requestId = headers['X-REQUEST-ID'] || uuidv4();
+      const requestId = req?.headers['X-REQUEST-ID'] || uuidv4();
       res.headers({
         'X-REQUEST-ID': requestId,
       });
@@ -40,11 +40,11 @@ export class LoggerInterceptor implements NestInterceptor {
     if (context.getType<GqlContextType>() === 'graphql') {
       const gqlContext = GqlExecutionContext.create(context);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const headers = gqlContext.getContext()?.headers;
+      const ctx = gqlContext.getContext();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const res: FastifyReply = gqlContext.getContext()?.res;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const requestId = headers['X-REQUEST-ID'] || uuidv4();
+      const requestId = ctx?.headers['X-REQUEST-ID'] || uuidv4();
       res.headers({
         'X-REQUEST-ID': requestId,
       });

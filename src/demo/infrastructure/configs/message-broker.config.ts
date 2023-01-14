@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '../../shared';
-import { IMessageBrokerConfig } from '../infrastructure/interfaces/configs/message-broker-config.interface';
+import { ConfigService } from '../../../shared';
+import { IMessageBrokerConfig } from '../interfaces/configs/message-broker-config.interface';
 
 @Injectable()
 export class MessageBrokerConfig implements IMessageBrokerConfig {
