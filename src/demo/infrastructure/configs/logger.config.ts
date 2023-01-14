@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ILoggerClientOptions, ILoggerConfigFactory } from '../../adapters';
-import { ConfigService } from '../../shared';
+import { ILoggerClientOptions, ILoggerConfigFactory } from '../../../adapters';
+import { ConfigService } from '../../../shared';
 
 @Injectable()
 export class LoggerConfig implements ILoggerConfigFactory {

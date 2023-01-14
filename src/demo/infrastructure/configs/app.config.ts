@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { IAppConfig } from '../../core/microservices';
-import { ConfigService } from '../../shared';
+import { IAppConfig } from '../../../core/microservices';
+import { ConfigService } from '../../../shared';
 
 @Injectable()
 export class AppConfig implements IAppConfig {

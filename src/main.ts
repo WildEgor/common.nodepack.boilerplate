@@ -3,9 +3,9 @@ import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppConfig } from './demo/configs/app.config';
-import { MessageBrokerConfig } from './demo/configs/message-broker.config';
-import { DemoModule } from './demo/demo.module';
+import { AppConfig } from './demo/infrastructure/configs/app.config';
+import { MessageBrokerConfig } from './demo/infrastructure/configs/message-broker.config';
+import { DemoModule } from './demo/modules/demo.module';
 import { GlobalExceptionsFilter } from './shared';
 
 const bootstrap = async(): Promise<void> => {
