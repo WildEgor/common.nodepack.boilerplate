@@ -8,11 +8,12 @@ import { HealthCheckResult } from '@nestjs/terminus';
 import { ApiGetHealthCheck } from '../../../infrastructure/swagger/health-check/get-health-check.api';
 import { ResultFactory, ServiceResponseDto, ServiceResponseDtoBase } from '../../../../core/microservices';
 import { LoggerInterceptor } from '../../../../adapters';
-import { HealthCheckQuery } from './query/health-check.query';
+import { HealthCheckQuery } from './query/checker/health-check.query';
+import { ResponseTimeInterceptor } from '../../../../shared';
 
 @Controller('health-check')
 @ApiTags('Health Check Controller')
-@UseInterceptors(LoggerInterceptor)
+@UseInterceptors(LoggerInterceptor, ResponseTimeInterceptor)
 export class HealthCheckController {
 
   // eslint-disable-next-line no-empty-function

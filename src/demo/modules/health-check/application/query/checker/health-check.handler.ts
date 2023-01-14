@@ -1,13 +1,13 @@
 import { Inject } from '@nestjs/common';
 import { HealthCheckResult, HealthCheckService } from '@nestjs/terminus';
 import { HealthCheckQuery } from './health-check.query';
-import { InjectTokens } from '../../../../infrastructure/types/inject-tokens.type';
+import { InjectTokens } from '../../../../../infrastructure/types/inject-tokens.type';
 import {
   ILoggerPort,
   IServiceVoidData, QueryHandlerBase,
   ServiceResponseDtoBase,
   ServiceResponseFactory,
-} from '../../../../../core/microservices';
+} from '../../../../../../core/microservices';
 import { QueryHandler } from '@nestjs/cqrs';
 
 @QueryHandler(HealthCheckQuery)
