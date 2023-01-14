@@ -3,15 +3,15 @@ import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './demo/app.module';
 import { AppConfig } from './demo/infrastructure/configs/app.config';
 import { MessageBrokerConfig } from './demo/infrastructure/configs/message-broker.config';
-import { DemoModule } from './demo/modules/demo.module';
 import { GlobalExceptionsFilter } from './shared';
 
 const bootstrap = async(): Promise<void> => {
   const fastifyAdapter = new FastifyAdapter();
   const app = await NestFactory.create<NestFastifyApplication>(
-    DemoModule,
+    AppModule,
     fastifyAdapter,
   );
 

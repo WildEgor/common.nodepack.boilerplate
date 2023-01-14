@@ -11,7 +11,7 @@ import {
 import { QueryHandler } from '@nestjs/cqrs';
 
 @QueryHandler(HealthCheckQuery)
-export class HealthCheckQueryCase extends QueryHandlerBase {
+export class HealthCheckHandler extends QueryHandlerBase {
 
   constructor(
     @Inject(InjectTokens.Logger)
