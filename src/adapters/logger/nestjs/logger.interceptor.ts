@@ -1,6 +1,5 @@
 import { CallHandler, ExecutionContext, HttpException, Injectable, Logger, NestInterceptor } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { catchError, Observable, tap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
@@ -26,29 +25,15 @@ export class LoggerInterceptor implements NestInterceptor {
   public intercept(context: ExecutionContext, next: CallHandler): Observable<void> {
     const startDate = Date.now();
 
-    // default REST Api
+    // in case REST
     if (context.getType() === 'http') {
-      const req = context.switchToHttp().getRequest<FastifyRequest>();
-      const res = context.switchToHttp().getResponse<FastifyReply>();
-      const requestId = req?.headers['X-REQUEST-ID'] || uuidv4();
-      res.headers({
+      const requestId = context.switchToHttp().getRequest<FastifyRequest>()?.headers['X-REQUEST-ID'] || uuidv4();
+      context.switchToHttp().getResponse<FastifyReply>().headers({
         'X-REQUEST-ID': requestId,
       });
     }
 
-    // Graphql
-    if (context.getType<GqlContextType>() === 'graphql') {
-      const gqlContext = GqlExecutionContext.create(context);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const ctx = gqlContext.getContext();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const res: FastifyReply = gqlContext.getContext()?.res;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const requestId = ctx?.headers['X-REQUEST-ID'] || uuidv4();
-      res.headers({
-        'X-REQUEST-ID': requestId,
-      });
-    }
+    // TODO: gql impl
 
     const requestToLogs = LoggerFactory.createLogItem(context);
     const message = LoggerFactory.makeMessage(this.reflector, context);
@@ -69,14 +54,14 @@ export class LoggerInterceptor implements NestInterceptor {
       }),
       catchError((caught: unknown) => {
         if (caught instanceof HttpException) {
-          const response = caught.getResponse() as Record<string, unknown>;
+          const response = <Record<string, unknown>>caught.getResponse();
           requestToLogs.duration = Date.now() - startDate;
           this.loggerClient.publishLogItem({
             type: LogTypes.error,
             message,
             data: {
               request: requestToLogs,
-              response: response.message,
+              response: response?.message,
             },
           }).catch((error) => {
             this.logger.error(error);

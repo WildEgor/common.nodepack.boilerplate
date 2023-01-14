@@ -70,6 +70,7 @@ const bootstrap = async(): Promise<void> => {
         : `http://127.0.0.1:${config.port}`;
     logger.debug(`Service available on ${addr}`);
     logger.debug(`Swagger available at ${addr}/api/docs`);
+    logger.debug(`Swagger available at ${addr}/graphiql`);
   });
 };
 bootstrap();

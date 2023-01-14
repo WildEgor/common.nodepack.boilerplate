@@ -4,6 +4,7 @@ import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { GraphQLResolveInfo } from 'graphql/type';
+import { v4 as uuidv4 } from 'uuid';
 // eslint-disable-next-line import/no-cycle
 import { ILoggerRequest } from '../nestjs';
 
@@ -13,16 +14,14 @@ export class LoggerFactory {
     if (context.getType<ContextType | 'graphql'>() === 'graphql') {
       const gqlContext = GqlExecutionContext.create(context);
       const info = gqlContext.getInfo<GraphQLResolveInfo>();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const req: FastifyRequest = gqlContext.getContext()?.req;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const res: FastifyReply = gqlContext.getContext()?.res;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const headers = gqlContext.getContext()?.headers;
-      const requestId = res.getHeader('X-REQUEST-ID');
+      // // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const req = gqlContext.getContext()?.req;
+      // // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const headers = gqlContext.getContext()?.req?.headers;
+      const requestId = req?.headers['X-REQUEST-ID'] || uuidv4();
       // Get user that sent request
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const userId = context.getArgByIndex(2).req?.user?.userId;
+      const userId = gqlContext.getContext().req?.user?.id;
       const parentType = info.parentType.name;
       const fieldName = info.fieldName;
       const body = info.fieldNodes[0]?.loc?.source?.body;

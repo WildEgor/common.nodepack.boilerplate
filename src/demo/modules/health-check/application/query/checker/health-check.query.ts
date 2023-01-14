@@ -1,4 +1,4 @@
-import { Query, QueryProps } from '../../../../../core/microservices';
+import { Query, QueryProps } from '../../../../../../core/microservices';
 
 export class HealthCheckQuery extends Query {
 
